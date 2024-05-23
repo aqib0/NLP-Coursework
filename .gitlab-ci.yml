@@ -1,5 +1,5 @@
 stages:
-  - train
+ # - train
   - deploy
 
 variables:
@@ -17,17 +17,17 @@ before_script:
   - pip install transformers[torch]  # Ensure that all required dependencies are installed
   - pip install accelerate -U  # Ensure the accelerate package is installed and updated
 
-train:
-  stage: train
-  tags:
-    - pages
-  script:
-    - source venv/bin/activate
-    - python train_model.py
-  artifacts:
-    paths:
-      - trained_model.joblib
-      - tokenizer.joblib
+#train:
+  #stage: train
+  #tags:
+  #  - pages
+  #script:
+  #  - source venv/bin/activate
+  #  - python train_model.py
+  #artifacts:
+  #  paths:
+  #    - trained_model.joblib
+  #    - tokenizer.joblib
 
 deploy:
   stage: deploy
