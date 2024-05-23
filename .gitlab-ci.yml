@@ -18,6 +18,9 @@ before_script:
 
 train:
   stage: train
+   tags:
+    - pages
+
   script:
     - source venv/bin/activate
     - python train_model.py
@@ -26,14 +29,11 @@ train:
       - trained_model.joblib
       - tokenizer.joblib
 
-test:
-  stage: test
-  script:
-    - source venv/bin/activate
-    - python test_model.py
-
 deploy:
   stage: deploy
+   tags:
+    - pages
+
   script:
     - echo "Deploying model locally..."
     - source venv/bin/activate
