@@ -5,7 +5,7 @@ stages:
 variables:
   MODEL_PATH: "distilbert-finetuned-ner"
   PYTHON_VERSION: "3.9"
-  DEPLOY_PATH: "/user/HS401/deployment"  # Updated deployment path
+  DEPLOY_PATH: "/user/HS401/ah02821/Downloads/deployment"  # Updated deployment path
 
 before_script:
   # Ensure the required Python version and pip are set up
