@@ -1,0 +1,52 @@
+stages:
+  - train
+  - test
+  - deploy
+
+variables:
+  MODEL_PATH: "distilbert-finetuned-ner"
+  PYTHON_VERSION: "3.9"
+  DEPLOY_PATH: "/user/HS401/deployment"  # Updated deployment path
+
+before_script:
+  # Ensure the required Python version and pip are set up
+  - apt-get update && apt-get install -y python3 python3-venv
+  - python3 -m venv venv
+  - source venv/bin/activate
+  - pip install --upgrade pip
+  - pip install -r requirements.txt
+
+train:
+  stage: train
+  script:
+    - source venv/bin/activate
+    - python train_model.py
+  artifacts:
+    paths:
+      - trained_model.joblib
+      - tokenizer.joblib
+
+test:
+  stage: test
+  script:
+    - source venv/bin/activate
+    - python test_model.py
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying model locally..."
+    - source venv/bin/activate
+    - mkdir -p $DEPLOY_PATH
+    - cp prediction.py $DEPLOY_PATH/
+    - cp requirements.txt $DEPLOY_PATH/
+    - cp trained_model.joblib $DEPLOY_PATH/
+    - cp tokenizer.joblib $DEPLOY_PATH/
+    - cd $DEPLOY_PATH
+    - pip install -r requirements.txt
+    - nohup python prediction.py &
+  dependencies:
+    - train
+  environment:
+    name: production
+    url: http://localhost:5003
