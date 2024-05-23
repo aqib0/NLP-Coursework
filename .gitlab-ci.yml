@@ -1,6 +1,5 @@
 stages:
   - train
-  - test
   - deploy
 
 variables:
@@ -18,9 +17,8 @@ before_script:
 
 train:
   stage: train
-   tags:
+  tags:
     - pages
-
   script:
     - source venv/bin/activate
     - python train_model.py
@@ -31,9 +29,8 @@ train:
 
 deploy:
   stage: deploy
-   tags:
+  tags:
     - pages
-
   script:
     - echo "Deploying model locally..."
     - source venv/bin/activate
