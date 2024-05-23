@@ -37,13 +37,13 @@ deploy:
     - echo "Deploying model locally..."
     - source venv/bin/activate
     - mkdir -p $DEPLOY_PATH
-    - cp prediction.py $DEPLOY_PATH/
+    - cp predictions.py $DEPLOY_PATH/
     - cp requirements.txt $DEPLOY_PATH/
     - cp trained_model.joblib $DEPLOY_PATH/
     - cp tokenizer.joblib $DEPLOY_PATH/
     - cd $DEPLOY_PATH
     - pip install -r requirements.txt
-    - nohup python prediction.py &
+    - nohup python predictions.py &
   dependencies:
     - train
   environment:
