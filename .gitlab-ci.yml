@@ -44,8 +44,8 @@ deploy:
     - cd $DEPLOY_PATH
     - pip install -r requirements.txt
     - nohup python predictions.py &
-  dependencies:
-    - train
+  #dependencies:
+  #  - train
   environment:
     name: production
     url: http://localhost:5003
